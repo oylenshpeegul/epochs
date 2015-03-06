@@ -18,7 +18,18 @@ var MixedTests = []struct {
 	{
 		Chrome,
 		12912187816559001,
-		time.Date(2010, time.March, 4, 14, 50, 16, 559001000, time.UTC)},
+		time.Date(2010, time.March, 4, 14, 50, 16, 559001000, time.UTC),
+	},
+	{
+		Cocoa,
+		256260690,
+		time.Date(2009, time.February, 13, 23, 31, 30, 0, time.UTC),
+	},
+	{
+		Cocoa,
+		314238233,
+		time.Date(2010, time.December, 17, 0, 23, 53, 0, time.UTC),
+	},
 	{
 		Unix,
 		1234567890,
