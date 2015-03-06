@@ -22,6 +22,12 @@ func Chrome(num int64) time.Time {
 	return epoch(big.NewInt(num), big.NewInt(1e6), big.NewInt(-11644473600))
 }
 
+// Cocoa time is the number of seconds since 2001-01-01, which
+// is 978,307,200 seconds after the Unix epoch.
+func Cocoa(num int64) time.Time {
+	return epoch(big.NewInt(num), big.NewInt(1), big.NewInt(978307200))
+}
+
 // Unix time is the number of seconds since 1970-01-01.
 func Unix(num int64) time.Time {
 	return time.Unix(num, 0).UTC()
