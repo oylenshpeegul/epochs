@@ -5,6 +5,24 @@ import (
 	"time"
 )
 
+var ChromeTests = []struct {
+	num int64
+	exp time.Time
+}{
+	{12879041490000000, time.Date(2009, time.February, 13, 23, 31, 30, 0, time.UTC)},
+}
+
+func TestChrome(t *testing.T) {
+
+	for _, tt := range ChromeTests {
+
+		obs := Chrome(tt.num)
+		if obs != tt.exp {
+			t.Errorf("Unix(%q) => %q, want %q", tt.num, obs, tt.exp)
+		}
+	}
+}
+
 var UnixTests = []struct {
 	num int64
 	exp time.Time
@@ -13,7 +31,6 @@ var UnixTests = []struct {
 }
 
 func TestUnix(t *testing.T) {
-
 	for _, tt := range UnixTests {
 
 		obs := Unix(tt.num)
@@ -21,5 +38,4 @@ func TestUnix(t *testing.T) {
 			t.Errorf("Unix(%q) => %q, want %q", tt.num, obs, tt.exp)
 		}
 	}
-
 }
