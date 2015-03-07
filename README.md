@@ -1,6 +1,8 @@
 # epochs
 Convert various epoch times to time.Time in Go.
 
+For example, running this code
+
 ```go
 package main
 
@@ -20,4 +22,11 @@ func main() {
 	fmt.Println(c.Format(time.RFC3339Nano))
 
 }
+```
+
+would give
+
+```
+2009-02-13T23:31:30Z
+2009-02-13T23:31:30.654321Z
 ```
