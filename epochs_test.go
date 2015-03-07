@@ -70,6 +70,26 @@ var MixedTests = []struct {
 		0x1dc7711a73088f5,
 		time.Date(2007, time.October, 10, 9, 17, 41, 739749300, time.UTC),
 	},
+	{
+		WindowsDate,
+		633701646900000000,
+		time.Date(2009, time.February, 13, 23, 31, 30, 0, time.UTC),
+	},
+	{
+		WindowsDate,
+		634496538123456789,
+		time.Date(2011, time.August, 22, 23, 50, 12, 345678900, time.UTC),
+	},
+	{
+		WindowsFile,
+		128790414900000000,
+		time.Date(2009, time.February, 13, 23, 31, 30, 0, time.UTC),
+	},
+	{
+		WindowsFile,
+		0x1cabbaa00ca9000,
+		time.Date(2010, time.March, 4, 14, 50, 16, 559001600, time.UTC),
+	},
 }
 
 func TestMixed(t *testing.T) {
