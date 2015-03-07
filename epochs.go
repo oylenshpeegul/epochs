@@ -33,6 +33,12 @@ func Java(num int64) time.Time {
 	return epoch(big.NewInt(num), big.NewInt(1000), big.NewInt(0))
 }
 
+// Mozilla time (e.g., formhistory.sqlite) is the number of
+// microseconds since the (regular, Unix) epoch.
+func Mozilla(num int64) time.Time {
+	return epoch(big.NewInt(num), big.NewInt(1000000), big.NewInt(0))
+}
+
 // Unix time is the number of seconds since 1970-01-01.
 func Unix(num int64) time.Time {
 	return time.Unix(num, 0).UTC()
