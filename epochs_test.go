@@ -65,6 +65,11 @@ var MixedTests = []struct {
 		134538606900000000,
 		time.Date(2009, time.February, 13, 23, 31, 30, 0, time.UTC),
 	},
+	{
+		UUIDv1,
+		0x1dc7711a73088f5,
+		time.Date(2007, time.October, 10, 9, 17, 41, 739749300, time.UTC),
+	},
 }
 
 func TestMixed(t *testing.T) {
