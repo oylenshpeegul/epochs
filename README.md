@@ -1,5 +1,5 @@
 # epochs
-Convert various epoch times to time.Time in Go.
+Convert various epoch times to time.Time times in Go.
 
 For example, running this code
 
