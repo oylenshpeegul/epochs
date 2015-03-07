@@ -28,13 +28,13 @@ func Cocoa(num int64) time.Time {
 	return epoch(big.NewInt(num), big.NewInt(1), big.NewInt(978307200))
 }
 
-// Java time is the number of milliseconds since the (regular, Unix) epoch.
+// Java time is the number of milliseconds since the Unix epoch.
 func Java(num int64) time.Time {
 	return epoch(big.NewInt(num), big.NewInt(1000), big.NewInt(0))
 }
 
 // Mozilla time (e.g., formhistory.sqlite) is the number of
-// microseconds since the (regular, Unix) epoch.
+// microseconds since the Unix epoch.
 func Mozilla(num int64) time.Time {
 	return epoch(big.NewInt(num), big.NewInt(1000000), big.NewInt(0))
 }
@@ -48,4 +48,15 @@ func Symbian(num int64) time.Time {
 // Unix time is the number of seconds since 1970-01-01.
 func Unix(num int64) time.Time {
 	return time.Unix(num, 0).UTC()
+}
+
+// UUID version 1 time (RFC 4122) is the number of hectonanoseconds
+// (100 ns) since 1582-10-15, which is 12,219,292,800 seconds before
+// the Unix epoch.
+func UUIDv1(num int64) time.Time {
+	return epoch(
+		big.NewInt(num),
+		big.NewInt(10000000),
+		big.NewInt(-12219292800),
+	)
 }
