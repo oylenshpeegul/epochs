@@ -28,6 +28,11 @@ func Cocoa(num int64) time.Time {
 	return epoch(big.NewInt(num), big.NewInt(1), big.NewInt(978307200))
 }
 
+// Java time is the number of milliseconds since the (regular, Unix) epoch.
+func Java(num int64) time.Time {
+	return epoch(big.NewInt(num), big.NewInt(1000), big.NewInt(0))
+}
+
 // Unix time is the number of seconds since 1970-01-01.
 func Unix(num int64) time.Time {
 	return time.Unix(num, 0).UTC()
