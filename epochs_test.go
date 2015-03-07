@@ -31,6 +31,16 @@ var MixedTests = []struct {
 		time.Date(2010, time.December, 17, 0, 23, 53, 0, time.UTC),
 	},
 	{
+		Java,
+		1234567890000,
+		time.Date(2009, time.February, 13, 23, 31, 30, 0, time.UTC),
+	},
+	{
+		Java,
+		1283002533751,
+		time.Date(2010, time.August, 28, 13, 35, 33, 751000000, time.UTC),
+	},
+	{
 		Unix,
 		1234567890,
 		time.Date(2009, time.February, 13, 23, 31, 30, 0, time.UTC),
