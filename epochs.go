@@ -39,6 +39,12 @@ func Mozilla(num int64) time.Time {
 	return epoch(big.NewInt(num), big.NewInt(1000000), big.NewInt(0))
 }
 
+// Symbian time is the number of microseconds since the year 0, which
+// is 62,167,219,200 seconds before the Unix epoch.
+func Symbian(num int64) time.Time {
+	return epoch(big.NewInt(num), big.NewInt(1000000), big.NewInt(-62167219200))
+}
+
 // Unix time is the number of seconds since 1970-01-01.
 func Unix(num int64) time.Time {
 	return time.Unix(num, 0).UTC()
