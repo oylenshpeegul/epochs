@@ -46,6 +46,11 @@ var MixedTests = []struct {
 		time.Date(2009, time.February, 13, 23, 31, 30, 0, time.UTC),
 	},
 	{
+		Symbian,
+		63401787090000000,
+		time.Date(2009, time.February, 13, 23, 31, 30, 0, time.UTC),
+	},
+	{
 		Unix,
 		1234567890,
 		time.Date(2009, time.February, 13, 23, 31, 30, 0, time.UTC),
