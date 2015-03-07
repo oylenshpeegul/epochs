@@ -60,3 +60,25 @@ func UUIDv1(num int64) time.Time {
 		big.NewInt(-12219292800),
 	)
 }
+
+// Windows date time (e.g., .NET) is the number of hectonanoseconds
+// (100 ns) since 0001-01-01, which is 62,135,596,800 seconds before
+// the Unix epoch.
+func WindowsDate(num int64) time.Time {
+	return epoch(
+		big.NewInt(num),
+		big.NewInt(10000000),
+		big.NewInt(-62135596800),
+	)
+}
+
+// Windows file time (e.g., NTFS) is the number of hectonanoseconds
+// (100 ns) since 1601-01-01, which is 11,644,473,600 seconds before
+// the Unix epoch.
+func WindowsFile(num int64) time.Time {
+	return epoch(
+		big.NewInt(num),
+		big.NewInt(10000000),
+		big.NewInt(-11644473600),
+	)
+}
