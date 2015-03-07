@@ -19,30 +19,50 @@ func epoch(x, q, s *big.Int) time.Time {
 // Chrome time is the number of microseconds since 1601-01-01, which
 // is 11,644,473,600 seconds before the Unix epoch.
 func Chrome(num int64) time.Time {
-	return epoch(big.NewInt(num), big.NewInt(1e6), big.NewInt(-11644473600))
+	return epoch(
+		big.NewInt(num),
+		big.NewInt(1e6),
+		big.NewInt(-11644473600),
+	)
 }
 
 // Cocoa time is the number of seconds since 2001-01-01, which
 // is 978,307,200 seconds after the Unix epoch.
 func Cocoa(num int64) time.Time {
-	return epoch(big.NewInt(num), big.NewInt(1), big.NewInt(978307200))
+	return epoch(
+		big.NewInt(num),
+		big.NewInt(1),
+		big.NewInt(978307200),
+	)
 }
 
 // Java time is the number of milliseconds since the Unix epoch.
 func Java(num int64) time.Time {
-	return epoch(big.NewInt(num), big.NewInt(1000), big.NewInt(0))
+	return epoch(
+		big.NewInt(num),
+		big.NewInt(1000),
+		big.NewInt(0),
+	)
 }
 
 // Mozilla time (e.g., formhistory.sqlite) is the number of
 // microseconds since the Unix epoch.
 func Mozilla(num int64) time.Time {
-	return epoch(big.NewInt(num), big.NewInt(1000000), big.NewInt(0))
+	return epoch(
+		big.NewInt(num),
+		big.NewInt(1e6),
+		big.NewInt(0),
+	)
 }
 
 // Symbian time is the number of microseconds since the year 0, which
 // is 62,167,219,200 seconds before the Unix epoch.
 func Symbian(num int64) time.Time {
-	return epoch(big.NewInt(num), big.NewInt(1000000), big.NewInt(-62167219200))
+	return epoch(
+		big.NewInt(num),
+		big.NewInt(1e6),
+		big.NewInt(-62167219200),
+	)
 }
 
 // Unix time is the number of seconds since 1970-01-01.
@@ -56,7 +76,7 @@ func Unix(num int64) time.Time {
 func UUIDv1(num int64) time.Time {
 	return epoch(
 		big.NewInt(num),
-		big.NewInt(10000000),
+		big.NewInt(1e7),
 		big.NewInt(-12219292800),
 	)
 }
@@ -67,7 +87,7 @@ func UUIDv1(num int64) time.Time {
 func WindowsDate(num int64) time.Time {
 	return epoch(
 		big.NewInt(num),
-		big.NewInt(10000000),
+		big.NewInt(1e7),
 		big.NewInt(-62135596800),
 	)
 }
@@ -78,7 +98,7 @@ func WindowsDate(num int64) time.Time {
 func WindowsFile(num int64) time.Time {
 	return epoch(
 		big.NewInt(num),
-		big.NewInt(10000000),
+		big.NewInt(1e7),
 		big.NewInt(-11644473600),
 	)
 }
