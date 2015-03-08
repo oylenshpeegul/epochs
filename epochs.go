@@ -1,6 +1,9 @@
 package epochs
 
 import (
+	"bytes"
+	"encoding/binary"
+	"fmt"
 	"math/big"
 	"time"
 )
@@ -36,6 +39,20 @@ func Cocoa(num int64) time.Time {
 	)
 }
 
+// ICQ time is the number of days since 1899-12-30, which is
+// 2,209,161,600 seconds before the Unix epoch. Days can have a
+// fractional part.
+func ICQ(days float64) time.Time {
+
+	intdays := int(days)
+	fracday := int64((days - float64(intdays)) * 24 * 60 * 60 * 1e9)
+
+	t := time.Unix(-2209161600, 0).UTC()
+	u := t.AddDate(0, 0, intdays)
+	v := u.Add(time.Duration(fracday))
+	return v
+}
+
 // Java time is the number of milliseconds since the Unix epoch.
 func Java(num int64) time.Time {
 	return epoch(
@@ -53,6 +70,27 @@ func Mozilla(num int64) time.Time {
 		big.NewInt(1e6),
 		big.NewInt(0),
 	)
+}
+
+// OLE time is the number of days since 1899-12-30, which is
+// 2,209,161,600 seconds before the Unix epoch. Days can have a
+// fractional part and is given as a string of hex characters
+// representing an IEEE 8-byte floating-point number.
+func OLE(days string) time.Time {
+	var f float64
+	d := [8]byte{}
+	fmt.Sscanf(
+		days,
+		"%02x%02x%02x%02x%02x%02x%02x%02x",
+		&d[0], &d[1], &d[2], &d[3], &d[4], &d[5], &d[6], &d[7],
+	)
+	b := d[:]
+	buf := bytes.NewReader(b)
+	err := binary.Read(buf, binary.LittleEndian, &f)
+	if err != nil {
+		fmt.Println("binary.Read failed:", err)
+	}
+	return ICQ(f)
 }
 
 // Symbian time is the number of microseconds since the year 0, which
