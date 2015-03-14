@@ -8,6 +8,8 @@ import (
 	"time"
 )
 
+const OneDay = 24 * 60 * 60
+
 // Epoch gets a Unix time of the given x after dividing by q and
 // adding s.
 func epoch(x, q, s *big.Int) time.Time {
@@ -39,6 +41,34 @@ func Cocoa(num int64) time.Time {
 	)
 }
 
+// GoogleCalendar seems to count 32-day months from the day before the
+// Unix epoch.
+func GoogleCalendar(num int64) time.Time {
+
+	n := int(num)
+
+	totalDays := n / OneDay
+	seconds := n % OneDay
+
+	// A "Google month" has 32 days!
+	months := totalDays / 32
+	days := totalDays % 32
+
+	// The "Google epoch" is apparently off by a day.
+	t := time.Unix(-OneDay, 0).UTC()
+
+	// Add the days first...
+	u := t.AddDate(0, 0, days)
+
+	// ...then the months.
+	v := u.AddDate(0, months, 0)
+
+	// ...then the seconds.
+	w := v.Add(time.Duration(seconds * 1e9))
+
+	return w
+}
+
 // ICQ time is the number of days since 1899-12-30, which is
 // 2,209,161,600 seconds before the Unix epoch. Days can have a
 // fractional part.
@@ -49,7 +79,7 @@ func ICQ(days float64) time.Time {
 	intdays := int(days)
 
 	// Want the fractional part of the day in nanoseconds.
-	fracday := int64((days - float64(intdays)) * 24 * 60 * 60 * 1e9)
+	fracday := int64((days - float64(intdays)) * OneDay * 1e9)
 
 	return t.AddDate(0, 0, intdays).Add(time.Duration(fracday))
 }
