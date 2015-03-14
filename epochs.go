@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-const OneDay = 24 * 60 * 60
+const SecondsPerDay = 24 * 60 * 60
 
 // Epoch gets a Unix time of the given x after dividing by q and
 // adding s.
@@ -47,15 +47,15 @@ func GoogleCalendar(num int64) time.Time {
 
 	n := int(num)
 
-	totalDays := n / OneDay
-	seconds := n % OneDay
+	totalDays := n / SecondsPerDay
+	seconds := n % SecondsPerDay
 
 	// A "Google month" has 32 days!
 	months := totalDays / 32
 	days := totalDays % 32
 
 	// The "Google epoch" is apparently off by a day.
-	t := time.Unix(-OneDay, 0).UTC()
+	t := time.Unix(-SecondsPerDay, 0).UTC()
 
 	// Add the days first...
 	u := t.AddDate(0, 0, days)
@@ -79,7 +79,7 @@ func ICQ(days float64) time.Time {
 	intdays := int(days)
 
 	// Want the fractional part of the day in nanoseconds.
-	fracday := int64((days - float64(intdays)) * OneDay * 1e9)
+	fracday := int64((days - float64(intdays)) * SecondsPerDay * 1e9)
 
 	return t.AddDate(0, 0, intdays).Add(time.Duration(fracday))
 }
