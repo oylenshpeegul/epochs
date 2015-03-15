@@ -168,7 +168,6 @@ var OLETests = []struct {
 
 func TestOLE(t *testing.T) {
 	for _, tt := range OLETests {
-
 		obs := tt.f(tt.num)
 		if obs != tt.exp {
 			t.Errorf("%q(%q) => %q, want %q", tt.f, tt.num, obs, tt.exp)
