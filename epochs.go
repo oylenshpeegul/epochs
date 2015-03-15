@@ -111,17 +111,23 @@ func OLE(days string) time.Time {
 	var d [8]byte
 	var f float64
 
-	fmt.Sscanf(
+	n, err := fmt.Sscanf(
 		days,
 		"%02x%02x%02x%02x%02x%02x%02x%02x",
 		&d[0], &d[1], &d[2], &d[3], &d[4], &d[5], &d[6], &d[7],
 	)
+	if err != nil {
+		fmt.Println("fmt.Sscanf failed:", err)
+	}
+	if n != 8 {
+		fmt.Println("fmt.Sscanf did not scan 8 items:", n)
+	}
 
 	buf := bytes.NewReader(d[:])
-	err := binary.Read(buf, binary.LittleEndian, &f)
-	if err != nil {
+	if err := binary.Read(buf, binary.LittleEndian, &f); err != nil {
 		fmt.Println("binary.Read failed:", err)
 	}
+
 	return ICQ(f)
 }
 
