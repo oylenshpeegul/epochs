@@ -30,3 +30,8 @@ would give
 2009-02-13T23:31:30Z
 2009-02-13T23:31:30.654321Z
 ```
+
+## Contributors
+
+@noppers worked out how to do the Google calendar calculation.
+
