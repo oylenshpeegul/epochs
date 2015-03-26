@@ -42,7 +42,7 @@ func Cocoa(num int64) time.Time {
 }
 
 // GoogleCalendar seems to count 32-day months from the day before the
-// Unix epoch.
+// Unix epoch. @noppers worked out how to do this.
 func GoogleCalendar(num int64) time.Time {
 
 	n := int(num)
