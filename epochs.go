@@ -60,7 +60,7 @@ func GoogleCalendar(num int64) time.Time {
 	// Add the days first...
 	u := t.AddDate(0, 0, days)
 
-	// ...then the months.
+	// ...then the months...
 	v := u.AddDate(0, months, 0)
 
 	// ...then the seconds.
