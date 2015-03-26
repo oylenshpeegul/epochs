@@ -33,6 +33,5 @@ would give
 
 ## Contributors
 
-[@noppers](https://github.com/noppers) worked out how to do the Google calendar calculation.
-
+[@noppers](https://github.com/noppers) originally worked out how to do the Google calendar calculation.
 
