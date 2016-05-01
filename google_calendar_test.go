@@ -31,3 +31,30 @@ func TestGoogleCalendar(t *testing.T) {
 		}
 	}
 }
+
+var ToGoogleCalendarTests = []struct {
+	f   func(time.Time) int64
+	t   time.Time
+	exp int64
+}{
+	{
+		ToGoogleCalendar,
+		time.Date(2009, time.February, 13, 23, 31, 30, 0, time.UTC),
+		1297899090,
+	},
+	{
+		ToGoogleCalendar,
+		time.Date(2007, time.March, 16, 23, 31, 30, 0, time.UTC),
+		1234567890,
+	},
+}
+
+func TestToGoogleCalendar(t *testing.T) {
+	for _, tt := range ToGoogleCalendarTests {
+
+		obs := tt.f(tt.t)
+		if obs != tt.exp {
+			t.Errorf("%q(%q) => %q, want %q", tt.f, tt.t, obs, tt.exp)
+		}
+	}
+}
