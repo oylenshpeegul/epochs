@@ -238,9 +238,9 @@ func ToUnix(t time.Time) int64 {
 	return t.Unix()
 }
 
-// UUID version 1 time (RFC 4122) is the number of hectonanoseconds
-// (100 ns) since 1582-10-15, which is 12,219,292,800 seconds before
-// the Unix epoch.
+// UUIDv1 time (RFC 4122) is the number of hectonanoseconds (100 ns)
+// since 1582-10-15, which is 12,219,292,800 seconds before the Unix
+// epoch.
 func UUIDv1(num int64) time.Time {
 	return epoch2time(
 		big.NewInt(num),
@@ -258,7 +258,7 @@ func ToUUIDv1(t time.Time) int64 {
 	)
 }
 
-// Windows date time (e.g., .NET) is the number of hectonanoseconds
+// WindowsDate time (e.g., .NET) is the number of hectonanoseconds
 // (100 ns) since 0001-01-01, which is 62,135,596,800 seconds before
 // the Unix epoch.
 func WindowsDate(num int64) time.Time {
@@ -278,7 +278,7 @@ func ToWindowsDate(t time.Time) int64 {
 	)
 }
 
-// Windows file time (e.g., NTFS) is the number of hectonanoseconds
+// WindowsFile time (e.g., NTFS) is the number of hectonanoseconds
 // (100 ns) since 1601-01-01, which is 11,644,473,600 seconds before
 // the Unix epoch.
 func WindowsFile(num int64) time.Time {
