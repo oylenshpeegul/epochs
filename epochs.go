@@ -249,7 +249,7 @@ func UUIDv1(num int64) time.Time {
 	)
 }
 
-// ToUUIDv1 returns the UUIDv1 time for the given time.Time.
+// ToUUIDv1 returns the UUID version 1 time for the given time.Time.
 func ToUUIDv1(t time.Time) int64 {
 	return time2epoch(
 		t,
