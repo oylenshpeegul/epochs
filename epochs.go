@@ -4,11 +4,13 @@ import (
 	"bytes"
 	"encoding/binary"
 	"fmt"
+	"math"
 	"math/big"
 	"time"
 )
 
 const SecondsPerDay = 24 * 60 * 60
+const NanosecondsPerDay = SecondsPerDay * 1e9
 
 // epoch2time gets a Unix time of the given x after dividing by q and
 // adding s.
@@ -114,9 +116,13 @@ func ICQ(days float64) time.Time {
 	intdays := int(days)
 
 	// Want the fractional part of the day in nanoseconds.
-	fracday := int64((days - float64(intdays)) * SecondsPerDay * 1e9)
+	fracday := int64((days - float64(intdays)) * NanosecondsPerDay)
 
 	return t.AddDate(0, 0, intdays).Add(time.Duration(fracday))
+}
+func ToICQ(t time.Time) float64 {
+	t2 := time.Unix(-2209161600, 0)
+	return float64(t.Sub(t2).Nanoseconds()) / float64(NanosecondsPerDay)
 }
 
 // Java time is the number of milliseconds since the Unix epoch.
@@ -178,6 +184,15 @@ func OLE(days string) time.Time {
 	}
 
 	return ICQ(f)
+}
+func ToOLE(t time.Time) string {
+	icq := ToICQ(t)
+	buf := new(bytes.Buffer)
+	err := binary.Write(buf, binary.LittleEndian, math.Float64bits(icq))
+	if err != nil {
+		fmt.Println("binary.Write failed:", err)
+	}
+	return fmt.Sprintf("%016x", buf.Bytes())
 }
 
 // Symbian time is the number of microseconds since the year 0, which
