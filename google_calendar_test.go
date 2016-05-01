@@ -27,7 +27,7 @@ func TestGoogleCalendar(t *testing.T) {
 
 		obs := tt.f(tt.num)
 		if obs != tt.exp {
-			t.Errorf("%q(%q) => %q, want %q", tt.f, tt.num, obs, tt.exp)
+			t.Errorf("%q => %q, want %q", tt.num, obs, tt.exp)
 		}
 	}
 }
@@ -54,7 +54,7 @@ func TestToGoogleCalendar(t *testing.T) {
 
 		obs := tt.f(tt.t)
 		if obs != tt.exp {
-			t.Errorf("%q(%q) => %q, want %q", tt.f, tt.t, obs, tt.exp)
+			t.Errorf("%q => %q, want %q", tt.t, obs, tt.exp)
 		}
 	}
 }
