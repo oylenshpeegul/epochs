@@ -9,8 +9,8 @@ import (
 	"time"
 )
 
-const SecondsPerDay = 24 * 60 * 60
-const NanosecondsPerDay = SecondsPerDay * 1e9
+const secondsPerDay = 24 * 60 * 60
+const nanosecondsPerDay = secondsPerDay * 1e9
 
 // epoch2time gets a Unix time of the given x after dividing by q and
 // adding s.
@@ -47,6 +47,8 @@ func Chrome(num int64) time.Time {
 		big.NewInt(-11644473600),
 	)
 }
+
+// ToChrome returns the Chrome time for the given time.Time.
 func ToChrome(t time.Time) int64 {
 	return time2epoch(
 		t,
@@ -64,6 +66,8 @@ func Cocoa(num int64) time.Time {
 		big.NewInt(978307200),
 	)
 }
+
+// ToCocoa returns the Cocoa time for the given time.Time.
 func ToCocoa(t time.Time) int64 {
 	return time2epoch(
 		t,
@@ -78,15 +82,15 @@ func GoogleCalendar(num int64) time.Time {
 
 	n := int(num)
 
-	totalDays := n / SecondsPerDay
-	seconds := n % SecondsPerDay
+	totalDays := n / secondsPerDay
+	seconds := n % secondsPerDay
 
 	// A "Google month" has 32 days!
 	months := totalDays / 32
 	days := totalDays % 32
 
 	// The "Google epoch" is apparently off by a day.
-	t := time.Unix(-SecondsPerDay, 0).UTC()
+	t := time.Unix(-secondsPerDay, 0).UTC()
 
 	// Add the days first...
 	u := t.AddDate(0, 0, days)
@@ -99,6 +103,8 @@ func GoogleCalendar(num int64) time.Time {
 
 	return w
 }
+
+// ToGoogleCalendar returns the GoogleCalendar time for the given time.Time.
 func ToGoogleCalendar(t time.Time) int64 {
 	y := t.Year() - 1970
 	m := int(t.Month()) - 1
@@ -116,13 +122,15 @@ func ICQ(days float64) time.Time {
 	intdays := int(days)
 
 	// Want the fractional part of the day in nanoseconds.
-	fracday := int64((days - float64(intdays)) * NanosecondsPerDay)
+	fracday := int64((days - float64(intdays)) * nanosecondsPerDay)
 
 	return t.AddDate(0, 0, intdays).Add(time.Duration(fracday))
 }
+
+// ToICQ returns the ICQ time for the given time.Time.
 func ToICQ(t time.Time) float64 {
 	t2 := time.Unix(-2209161600, 0)
-	return float64(t.Sub(t2).Nanoseconds()) / float64(NanosecondsPerDay)
+	return float64(t.Sub(t2).Nanoseconds()) / float64(nanosecondsPerDay)
 }
 
 // Java time is the number of milliseconds since the Unix epoch.
@@ -133,6 +141,8 @@ func Java(num int64) time.Time {
 		big.NewInt(0),
 	)
 }
+
+// ToJava returns the Java time for the given time.Time.
 func ToJava(t time.Time) int64 {
 	return time2epoch(
 		t,
@@ -150,6 +160,8 @@ func Mozilla(num int64) time.Time {
 		big.NewInt(0),
 	)
 }
+
+// ToMozilla returns the Mozilla time for the given time.Time.
 func ToMozilla(t time.Time) int64 {
 	return time2epoch(
 		t,
@@ -185,6 +197,8 @@ func OLE(days string) time.Time {
 
 	return ICQ(f)
 }
+
+// ToOLE returns the OLE time for the given time.Time.
 func ToOLE(t time.Time) string {
 	icq := ToICQ(t)
 	buf := new(bytes.Buffer)
@@ -204,6 +218,8 @@ func Symbian(num int64) time.Time {
 		big.NewInt(-62167219200),
 	)
 }
+
+// ToSymbian returns the Symbian time for the given time.Time.
 func ToSymbian(t time.Time) int64 {
 	return time2epoch(
 		t,
@@ -216,6 +232,8 @@ func ToSymbian(t time.Time) int64 {
 func Unix(num int64) time.Time {
 	return time.Unix(num, 0).UTC()
 }
+
+// ToUnix returns the Unix time for the given time.Time.
 func ToUnix(t time.Time) int64 {
 	return t.Unix()
 }
@@ -230,6 +248,8 @@ func UUIDv1(num int64) time.Time {
 		big.NewInt(-12219292800),
 	)
 }
+
+// ToUUIDv1 returns the UUIDv1 time for the given time.Time.
 func ToUUIDv1(t time.Time) int64 {
 	return time2epoch(
 		t,
@@ -248,6 +268,8 @@ func WindowsDate(num int64) time.Time {
 		big.NewInt(-62135596800),
 	)
 }
+
+// ToWindowsDate returns the WindowsDate time for the given time.Time.
 func ToWindowsDate(t time.Time) int64 {
 	return time2epoch(
 		t,
@@ -266,6 +288,8 @@ func WindowsFile(num int64) time.Time {
 		big.NewInt(-11644473600),
 	)
 }
+
+// ToWindowsFile returns the WindowsFile time for the given time.Time.
 func ToWindowsFile(t time.Time) int64 {
 	return time2epoch(
 		t,
