@@ -31,7 +31,26 @@ would give
 2009-02-13T23:31:30.654321Z
 ```
 
+**Update:** Now there are functions in the other direction too! For example, running this
+
+```go
+	fmt.Println(epochs.ToUnix(u))
+
+	fmt.Println(epochs.ToChrome(c))
+```
+
+gives
+
+```
+1234567890
+12879041490654321
+```
+
 ## Contributors
 
 [@noppers](https://github.com/noppers) originally worked out how to do the Google calendar calculation.
+
+## See also
+
+This was originally done [in Perl](https://github.com/oylenshpeegul/Epochs-perl).
 
