@@ -10,9 +10,9 @@ import (
 
 const SecondsPerDay = 24 * 60 * 60
 
-// Epoch gets a Unix time of the given x after dividing by q and
+// epoch2time gets a Unix time of the given x after dividing by q and
 // adding s.
-func epoch(x, q, s *big.Int) time.Time {
+func epoch2time(x, q, s *big.Int) time.Time {
 	z := new(big.Int)
 	m := new(big.Int)
 	z.DivMod(x, q, m)
@@ -21,11 +21,33 @@ func epoch(x, q, s *big.Int) time.Time {
 	return time.Unix(z.Int64(), r.Int64()).UTC()
 }
 
+// time2epoch reverses epoch2time.
+func time2epoch(t time.Time, m, s *big.Int) int64 {
+	bf := new(big.Float).SetInt(big.NewInt(t.UnixNano()))
+	bf.Quo(bf, big.NewFloat(1e9))
+	bf.Sub(bf, new(big.Float).SetInt(s))
+	bf.Mul(bf, new(big.Float).SetInt(m))
+
+	r, acc := bf.Int64()
+	if acc != big.Exact {
+		fmt.Println(acc)
+	}
+
+	return r
+}
+
 // Chrome time is the number of microseconds since 1601-01-01, which
 // is 11,644,473,600 seconds before the Unix epoch.
 func Chrome(num int64) time.Time {
-	return epoch(
+	return epoch2time(
 		big.NewInt(num),
+		big.NewInt(1e6),
+		big.NewInt(-11644473600),
+	)
+}
+func ToChrome(t time.Time) int64 {
+	return time2epoch(
+		t,
 		big.NewInt(1e6),
 		big.NewInt(-11644473600),
 	)
@@ -34,8 +56,15 @@ func Chrome(num int64) time.Time {
 // Cocoa time is the number of seconds since 2001-01-01, which
 // is 978,307,200 seconds after the Unix epoch.
 func Cocoa(num int64) time.Time {
-	return epoch(
+	return epoch2time(
 		big.NewInt(num),
+		big.NewInt(1),
+		big.NewInt(978307200),
+	)
+}
+func ToCocoa(t time.Time) int64 {
+	return time2epoch(
+		t,
 		big.NewInt(1),
 		big.NewInt(978307200),
 	)
@@ -68,6 +97,12 @@ func GoogleCalendar(num int64) time.Time {
 
 	return w
 }
+func ToGoogleCalendar(t time.Time) int64 {
+	y := t.Year() - 1970
+	m := int(t.Month()) - 1
+	r := ((((y*12+m)*32+t.Day())*24+t.Hour())*60+t.Minute())*60 + t.Second()
+	return int64(r)
+}
 
 // ICQ time is the number of days since 1899-12-30, which is
 // 2,209,161,600 seconds before the Unix epoch. Days can have a
@@ -86,8 +121,15 @@ func ICQ(days float64) time.Time {
 
 // Java time is the number of milliseconds since the Unix epoch.
 func Java(num int64) time.Time {
-	return epoch(
+	return epoch2time(
 		big.NewInt(num),
+		big.NewInt(1000),
+		big.NewInt(0),
+	)
+}
+func ToJava(t time.Time) int64 {
+	return time2epoch(
+		t,
 		big.NewInt(1000),
 		big.NewInt(0),
 	)
@@ -96,8 +138,15 @@ func Java(num int64) time.Time {
 // Mozilla time (e.g., formhistory.sqlite) is the number of
 // microseconds since the Unix epoch.
 func Mozilla(num int64) time.Time {
-	return epoch(
+	return epoch2time(
 		big.NewInt(num),
+		big.NewInt(1e6),
+		big.NewInt(0),
+	)
+}
+func ToMozilla(t time.Time) int64 {
+	return time2epoch(
+		t,
 		big.NewInt(1e6),
 		big.NewInt(0),
 	)
@@ -134,8 +183,15 @@ func OLE(days string) time.Time {
 // Symbian time is the number of microseconds since the year 0, which
 // is 62,167,219,200 seconds before the Unix epoch.
 func Symbian(num int64) time.Time {
-	return epoch(
+	return epoch2time(
 		big.NewInt(num),
+		big.NewInt(1e6),
+		big.NewInt(-62167219200),
+	)
+}
+func ToSymbian(t time.Time) int64 {
+	return time2epoch(
+		t,
 		big.NewInt(1e6),
 		big.NewInt(-62167219200),
 	)
@@ -145,13 +201,23 @@ func Symbian(num int64) time.Time {
 func Unix(num int64) time.Time {
 	return time.Unix(num, 0).UTC()
 }
+func ToUnix(t time.Time) int64 {
+	return t.Unix()
+}
 
 // UUID version 1 time (RFC 4122) is the number of hectonanoseconds
 // (100 ns) since 1582-10-15, which is 12,219,292,800 seconds before
 // the Unix epoch.
 func UUIDv1(num int64) time.Time {
-	return epoch(
+	return epoch2time(
 		big.NewInt(num),
+		big.NewInt(1e7),
+		big.NewInt(-12219292800),
+	)
+}
+func ToUUIDv1(t time.Time) int64 {
+	return time2epoch(
+		t,
 		big.NewInt(1e7),
 		big.NewInt(-12219292800),
 	)
@@ -161,8 +227,15 @@ func UUIDv1(num int64) time.Time {
 // (100 ns) since 0001-01-01, which is 62,135,596,800 seconds before
 // the Unix epoch.
 func WindowsDate(num int64) time.Time {
-	return epoch(
+	return epoch2time(
 		big.NewInt(num),
+		big.NewInt(1e7),
+		big.NewInt(-62135596800),
+	)
+}
+func ToWindowsDate(t time.Time) int64 {
+	return time2epoch(
+		t,
 		big.NewInt(1e7),
 		big.NewInt(-62135596800),
 	)
@@ -172,8 +245,15 @@ func WindowsDate(num int64) time.Time {
 // (100 ns) since 1601-01-01, which is 11,644,473,600 seconds before
 // the Unix epoch.
 func WindowsFile(num int64) time.Time {
-	return epoch(
+	return epoch2time(
 		big.NewInt(num),
+		big.NewInt(1e7),
+		big.NewInt(-11644473600),
+	)
+}
+func ToWindowsFile(t time.Time) int64 {
+	return time2epoch(
+		t,
 		big.NewInt(1e7),
 		big.NewInt(-11644473600),
 	)
