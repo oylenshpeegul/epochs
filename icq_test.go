@@ -37,7 +37,7 @@ func TestICQ(t *testing.T) {
 
 		obs := tt.f(tt.num)
 		if obs != tt.exp {
-			t.Errorf("%q(%q) => %q, want %q", tt.f, tt.num, obs, tt.exp)
+			t.Errorf("%f => %q, want %q", tt.num, obs, tt.exp)
 		}
 	}
 }
@@ -74,7 +74,7 @@ func TestToICQ(t *testing.T) {
 
 		obs := tt.f(tt.t)
 		if obs != tt.exp {
-			t.Errorf("%q(%q) => %q, want %q", tt.f, tt.t, obs, tt.exp)
+			t.Errorf("%q => %f, want %f", tt.t, obs, tt.exp)
 		}
 	}
 }
