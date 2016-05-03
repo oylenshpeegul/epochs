@@ -52,5 +52,5 @@ gives
 
 ## See also
 
-This was originally done [in Perl](https://github.com/oylenshpeegul/Epochs-perl).
+This was originally done [in Perl](http://oylenshpeegul.github.io/Epochs-perl/).
 
