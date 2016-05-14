@@ -130,7 +130,7 @@ func ICQ(days float64) time.Time {
 // ToICQ returns the ICQ time for the given time.Time.
 func ToICQ(t time.Time) float64 {
 	t2 := time.Unix(-2209161600, 0)
-	return float64(t.Sub(t2).Nanoseconds()) / float64(nanosecondsPerDay)
+	return float64(t.Sub(t2).Nanoseconds()) / nanosecondsPerDay
 }
 
 // Java time is the number of milliseconds since the Unix epoch.
