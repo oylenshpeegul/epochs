@@ -54,3 +54,6 @@ gives
 
 This was originally done [in Perl](http://oylenshpeegul.github.io/Epochs-perl/).
 
+There is also a version [in Elixir](https://github.com/oylenshpeegul/Epochs-elixir).
+
+See [the Epochs gh-page](http://oylenshpeegul.github.io/Epochs-perl/) for motivation.
