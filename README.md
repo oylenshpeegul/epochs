@@ -52,8 +52,9 @@ gives
 
 ## See also
 
-This was originally done [in Perl](https://github.com/oylenshpeegul/Epochs-perl).
+This project was originally done in [Perl](https://github.com/oylenshpeegul/Epochs-perl). See [the Epochs page](http://oylenshpeegul.github.io/Epochs-perl/) for motivation.
 
-There is also a version [in Elixir](https://github.com/oylenshpeegul/Epochs-elixir).
+There are also a versions in
+- [Elixir](https://github.com/oylenshpeegul/Epochs-elixir)
+- [PowerShell](https://github.com/oylenshpeegul/Epochs-powershell)
 
-See [the Epochs gh-page](http://oylenshpeegul.github.io/Epochs-perl/) for motivation.
