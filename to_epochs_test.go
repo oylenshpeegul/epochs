@@ -11,6 +11,11 @@ var ToEpochsTests = []struct {
 	exp int64
 }{
 	{
+		ToAPFS,
+		time.Date(2009, time.February, 13, 23, 31, 30, 0, time.UTC),
+		1234567890000000000,
+	},
+	{
 		ToChrome,
 		time.Date(2009, time.February, 13, 23, 31, 30, 0, time.UTC),
 		12879041490000000,
