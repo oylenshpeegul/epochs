@@ -38,6 +38,25 @@ func time2epoch(t time.Time, m, s *big.Int) int64 {
 	return r
 }
 
+// APFS time is the number of nanoseconds since the Unix epoch.
+// Cf., APFS filesystem format (https://blog.cugu.eu/post/apfs/).
+func APFS(num int64) time.Time {
+	return epoch2time(
+		big.NewInt(num),
+		big.NewInt(1e9),
+		big.NewInt(0),
+	)
+}
+
+// ToAPFS returns the APFS time for the given time.Time.
+func ToAPFS(t time.Time) int64 {
+	return time2epoch(
+		t,
+		big.NewInt(1e9),
+		big.NewInt(0),
+	)
+}
+
 // Chrome time is the number of microseconds since 1601-01-01, which
 // is 11,644,473,600 seconds before the Unix epoch.
 func Chrome(num int64) time.Time {
