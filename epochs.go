@@ -206,15 +206,15 @@ func OLE(days string) time.Time {
 		&d[0], &d[1], &d[2], &d[3], &d[4], &d[5], &d[6], &d[7],
 	)
 	if err != nil {
-		fmt.Println("fmt.Sscanf failed:", err)
+		panic(fmt.Sprintln("fmt.Sscanf failed:", err))
 	}
 	if n != 8 {
-		fmt.Println("fmt.Sscanf did not scan 8 items:", n)
+		panic(fmt.Sprintln("fmt.Sscanf did not scan 8 items:", n))
 	}
 
 	buf := bytes.NewReader(d[:])
 	if err := binary.Read(buf, binary.LittleEndian, &f); err != nil {
-		fmt.Println("binary.Read failed:", err)
+		panic(fmt.Sprintln("binary.Read failed:", err))
 	}
 
 	return ICQ(f)
@@ -226,7 +226,7 @@ func ToOLE(t time.Time) string {
 	buf := new(bytes.Buffer)
 	err := binary.Write(buf, binary.LittleEndian, math.Float64bits(icq))
 	if err != nil {
-		fmt.Println("binary.Write failed:", err)
+		panic(fmt.Sprintln("binary.Write failed:", err))
 	}
 	return fmt.Sprintf("%016x", buf.Bytes())
 }
