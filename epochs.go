@@ -31,8 +31,11 @@ func time2epoch(t time.Time, m, s *big.Int) int64 {
 	bf.Mul(bf, new(big.Float).SetInt(m))
 
 	r, acc := bf.Int64()
-	if acc != big.Exact {
-		fmt.Println(acc)
+	if r == math.MaxInt64 && acc == big.Below {
+		panic("error: epoch overflowed!")
+	}
+	if r == math.MinInt64 && acc == big.Above {
+		panic("error: epoch underflowed!")
 	}
 
 	return r
