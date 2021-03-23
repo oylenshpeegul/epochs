@@ -95,6 +95,14 @@ var ToEpochsTests = []struct {
 		time.Date(2010, time.March, 4, 14, 50, 16, 559001600, time.UTC),
 		0x1cabbaa00ca9000,
 	},
+
+	// This conversion to NTFS time will not preserve nanosecond
+	// accuracy, but that's normal. It shouldn't complain about it.
+	{
+		ToWindowsFile,
+		time.Date(2020, 3, 23, 10, 17, 0, 123456750, time.UTC),
+		132294322201234567,
+	},
 }
 
 func TestToEpochs(t *testing.T) {
